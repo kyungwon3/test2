@@ -17,7 +17,7 @@ pipeline {
 	'''
       }
     }
-    stage{' deployment, svc creation'}{
+    stage(' deployment, svc creation'){
       steps{
         sh'''
 	kubectl apply -f blue.yaml
