@@ -1,0 +1,28 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: green
+spec:
+  selector:
+  replicas: 3
+  template: # pod 구성 내용 
+    metadata:
+    spec: # 컨테이너 구성 내용 
+      containers:
+      - name: blue
+        image: 192.168.8.100:5000/testweb:green
+        ports:
+        - containerPort: 80
+            
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: green-lb
+spec:
+  ports:
+  - name: green-port
+    port: 80
+  type: LoadBalancer

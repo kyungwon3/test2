@@ -11,14 +11,15 @@ pipeline{
         sh '''
 	docker build -t 192.168.8.100:5000/testweb:blue
 	docker push 192.168.8.100:5000/testweb:blue
+	docker build -t 192.168.8.100:5000/testweb:green
+        docker push 192.168.8.100:5000/testweb:green
 	'''
       }
     }
     stage{' deployment, svc creation'}{
       steps{
         sh'''
-        kubectl create deploy testweb --image=192.168.8.100:5000/testweb:blue
-	kubectl expose deploy testweb --type=LoadBalancer --port=80 --target-port=80 --name=testweb-svc
+	kubectl apply -f blue.yaml
 	'''
       }
     }
